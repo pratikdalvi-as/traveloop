@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Traveloop is a personalized travel planning app for trips, itineraries, budgets, maps, notes, packing, and sharing.">
+  <title>Traveloop - Personalized Travel Planning</title>
+  <link rel="preconnect" href="https://cdn.jsdelivr.net">
+  <link rel="preconnect" href="https://unpkg.com">
+  <link rel="preconnect" href="https://images.unsplash.com">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="app-shell" id="appShell">
+    <aside class="sidebar" aria-label="Primary navigation">
+      <a class="brand" href="#dashboard" aria-label="Traveloop dashboard">
+        <span class="brand-mark">TL</span>
+        <span>
+          <strong>Traveloop</strong>
+          <small>Travel planning made easy</small>
+        </span>
+      </a>
+
+      <nav class="nav-list" id="navList">
+        <a href="#dashboard" data-view="dashboard"><i data-lucide="layout-dashboard"></i><span>Dashboard</span></a>
+        <a href="#create" data-view="create"><i data-lucide="plus-square"></i><span>Create Trip</span></a>
+        <a href="#trips" data-view="trips"><i data-lucide="briefcase"></i><span>My Trips</span></a>
+        <a href="#builder" data-view="builder"><i data-lucide="route"></i><span>Builder</span></a>
+        <a href="#itinerary" data-view="itinerary"><i data-lucide="calendar-days"></i><span>Itinerary</span></a>
+        <a href="#discover" data-view="discover"><i data-lucide="search"></i><span>Discover</span></a>
+        <a href="#budget" data-view="budget"><i data-lucide="pie-chart"></i><span>Budget</span></a>
+        <a href="#packing" data-view="packing"><i data-lucide="luggage"></i><span>Packing</span></a>
+        <a href="#share" data-view="share"><i data-lucide="share-2"></i><span>Share</span></a>
+        <a href="#notes" data-view="notes"><i data-lucide="notebook-pen"></i><span>Notes</span></a>
+        <a href="#settings" data-view="settings"><i data-lucide="settings"></i><span>Settings</span></a>
+        <a href="#admin" data-view="admin"><i data-lucide="bar-chart-3"></i><span>Admin</span></a>
+      </nav>
+
+      <div class="sidebar-panel">
+        <span class="status-dot" id="backendDot"></span>
+        <div>
+          <strong id="backendLabel">Demo backend</strong>
+          <small id="backendHint">Add Supabase keys for live data.</small>
+        </div>
+      </div>
+    </aside>
+
+    <div class="mobile-bar">
+      <a class="brand compact" href="#dashboard">
+        <span class="brand-mark">TL</span>
+        <strong>Traveloop</strong>
+      </a>
+      <button class="icon-btn" type="button" id="mobileMenuBtn" aria-label="Open navigation" title="Open navigation">
+        <i data-lucide="menu"></i>
+      </button>
+    </div>
+
+    <main class="main">
+      <header class="topbar">
+        <div>
+          <p class="eyebrow" id="viewEyebrow">Personalized travel planning</p>
+          <h1 id="viewTitle">Dashboard</h1>
+        </div>
+        <div class="topbar-actions">
+          <button class="icon-btn" type="button" id="themeToggle" aria-label="Toggle theme" title="Toggle theme">
+            <i data-lucide="moon"></i>
+          </button>
+          <button class="ghost-btn" type="button" id="openCurrentRoute">
+            <i data-lucide="map"></i>
+            <span>Open Route</span>
+          </button>
+          <button class="solid-btn" type="button" id="logoutBtn">
+            <i data-lucide="log-out"></i>
+            <span>Logout</span>
+          </button>
+        </div>
+      </header>
+
+      <section class="view" id="viewRoot" tabindex="-1" aria-live="polite"></section>
+    </main>
+  </div>
+
+  <section class="auth-screen" id="authScreen" aria-label="Traveloop authentication">
+    <div class="auth-visual">
+      <div class="auth-copy">
+        <span class="pill">Traveloop</span>
+        <h2>Dream, design, budget, and share one complete journey.</h2>
+        <p>Build multi-city itineraries, open every stop in Google Maps, keep a packing checklist, and turn plans into a public travel story.</p>
+      </div>
+    </div>
+
+    <div class="auth-card">
+      <div class="auth-heading">
+        <span class="brand-mark">TL</span>
+        <div>
+          <h1>Welcome to Traveloop</h1>
+          <p id="authSubtitle"> first creat your account and then Sign in to manage your travel plans.</p>
+        </div>
+      </div>
+
+      <form id="authForm" class="stacked-form">
+        <label>
+          <span>Email</span>
+          <input id="authEmail" type="email" autocomplete="email" placeholder="you@example.com" required>
+        </label>
+        <label>
+          <span>Password</span>
+          <input id="authPassword" type="password" autocomplete="current-password" placeholder="At least 6 characters" required minlength="6">
+        </label>
+        <button class="solid-btn wide" type="submit" id="authSubmit">
+          <i data-lucide="log-in"></i>
+          <span>Login</span>
+        </button>
+      </form>
+
+      <div class="verification-panel hidden" id="verificationPanel">
+        <span class="pill accent">Email verification</span>
+        <h3>Verify your email</h3>
+        <p id="verificationMessage">Check your inbox for a confirmation link or enter the demo code shown here.</p>
+        <label>
+          <span>Verification code</span>
+          <input id="verificationCode" inputmode="numeric" maxlength="6" placeholder="6-digit code">
+        </label>
+        <div class="auth-actions">
+          <button class="solid-btn" type="button" id="verifyEmailBtn">
+            <i data-lucide="shield-check"></i>
+            <span>Verify</span>
+          </button>
+          <button class="ghost-btn" type="button" id="resendVerificationBtn">
+            <i data-lucide="mail"></i>
+            <span>Resend</span>
+          </button>
+          <button class="subtle-btn" type="button" id="refreshVerificationBtn">
+            <i data-lucide="refresh-cw"></i>
+            <span>I clicked the link</span>
+          </button>
+        </div>
+      </div>
+
+      <div class="auth-links">
+        <button type="button" class="link-btn" id="toggleAuthMode">Create an account</button>
+        <button type="button" class="link-btn" id="forgotPasswordBtn">Forgot password</button>
+      </div>
+
+      <p class="form-note">
+        
+      </p>
+    </div>
+  </section>
+
+  <div class="toast-region" id="toastRegion" aria-live="assertive" aria-atomic="true"></div>
+
+  <noscript>
+    <div class="noscript">Traveloop needs JavaScript enabled to run the itinerary builder and planner.</div>
+  </noscript>
+
+  <script async src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script async src="https://unpkg.com/lucide@latest"></script>
+  <script src="data.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
